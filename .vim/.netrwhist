@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/home/ubuntu/docker/webapp'
-let g:netrw_dirhist_2='/home/ubuntu/docker'
-let g:netrw_dirhist_1='/home/ubuntu/static-website/templates'
