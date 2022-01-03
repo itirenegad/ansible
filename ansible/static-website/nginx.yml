@@ -1,0 +1,30 @@
+---
+- name: "nginx"
+  hosts: "all"
+
+  tasks:
+  - name: "Prepare /var/www/html/ before gitclone"
+      command: "rm -rf /var/www/html/"
+
+  - name: "Git clone"
+      git:
+        repo: "https://github.com/diranetafen/static-website-example.git"
+        dest: "/home/ubuntu/"
+        force: "yes"
+
+  - name: "Restart a container"
+    docker_container:
+      name: "nginx"
+      image: "nginx"
+      state: "started"
+      restart: "yes"
+      ports:
+      - "80:80"
+      volumes:
+      - "/var/www/html/:/usr/share/nginx/html/"
+   
+   - name: "Comment web page in right directory"
+     file:
+       src: "/home/ubuntu/static-website-example/index.html"
+       dest: "/usr/share/nginx/html/"
+       state: "present"

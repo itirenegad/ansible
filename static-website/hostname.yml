@@ -1,0 +1,8 @@
+---
+- name: "Change Hostname"
+  hosts: "all"
+  
+  tasks:
+    - name: "Hostname set"
+      command: "hostnamectl set-hostname {{ hostname }}"
+

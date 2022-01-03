@@ -1,0 +1,45 @@
+---
+- name: "Install nginx"
+  hosts: prod
+  become: yes
+  vars:
+    app: nginx
+  vars_files:
+    - /home/ubuntu/nginx/env.yml
+
+  tasks:
+    - name: "Copy Script files"
+      template:
+        src: install_nginx.sh.j2
+        dest: /home/ubuntu/install_nginx.sh
+
+    - name: "Install nginx"
+      command: "sh /home/ubuntu/install_nginx.sh"
+
+    - name: "start nginx"
+      service:
+        name: nginx
+        enabled: yes
+        state: started
+
+    - name: "Create index file for nginx"
+      copy:
+        dest: /var/www/html/index.html
+        content: "Bonjour AJC"
+
+- name: "Desinstall nginx"
+  hosts: worker02
+  become: yes
+  vars:
+    app: nginx
+  vars_files:
+    - /home/ubuntu/nginx/env.yml
+
+  tasks:
+    - name: "Copy script file"
+      template:
+        src: unsinstall_nginx.sh.j2
+        dest: /home/ubuntu/uninstall_nginx.sh
+
+    - name: desinstall nginx
+      command: "sh /home/ubuntu/uninstall_nginx.sh"
