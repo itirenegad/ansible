@@ -1,0 +1,6 @@
+- name: "Edit the name of our host"
+  hosts: all
+  vars_files: secrets.yml
+  tasks:
+    - name: "Edit the name of the host"
+      hostname: name="{{ hostname }}"

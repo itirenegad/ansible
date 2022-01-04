@@ -1,0 +1,8 @@
+---
+- name : "Deploy Wordpress and MariaDB"
+  hosts:
+    - worker02 # Ubuntu
+    - worker03 # CentOS
+  roles:
+    - docker_role
+    - wordpress_role

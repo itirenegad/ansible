@@ -1,0 +1,32 @@
+---
+- name: "Install docker"
+  hosts: prod
+  become: true
+  vars:
+    ansible_sudo_pass: ubuntu
+
+  tasks:
+    - name: "create a web_files Directory on remote host"
+      file:
+        path: /home/ubuntu/nginx
+        state: directory
+
+    - name: git clone the app files
+      git:
+        repo: https://github.com/diranetafen/static-website-example.git
+        dest: /var/www/html
+        force: yes
+
+    - name: "copy index.html tempalte on remote host"
+      file:
+        src: "/home/ubuntu/index.html.j2
+        dest: /home/ubuntu/web_files/index.html"
+
+    - name: "create container mario"
+      docker_container:
+        name: webapp-httpd
+        image: httpd
+        ports:
+          - "8080:80"
+        volumes:
+          - "/home/ubuntu/web_files/:/usr/local/apache2/htdocs/"

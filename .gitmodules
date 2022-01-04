@@ -1,0 +1,3 @@
+[submodule "role/docker_role"]
+	path = role/docker_role
+	url = https://github.com/itirenegad/ansible.git
